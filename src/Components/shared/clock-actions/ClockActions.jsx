@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import { useState } from "react";
 import ClockForm from "../clock-form/ClockForm";
 
 /**
@@ -32,35 +32,73 @@ const ClockActions = ({
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg  py-4 px-3 space-y-4 max-w-full mx-auto">
-      <div className="flex space-x-4">
+    <div 
+  className="
+    bg-gray-50 dark:bg-gray-900 
+    border border-gray-200 dark:border-gray-800 
+    shadow-lg dark:shadow-black/50 
+    rounded-lg 
+    py-4 px-4 
+    space-y-4 
+    max-w-full mx-auto 
+    transition-colors duration-300
+  "
+>
+      {/* Action Buttons */}
+      <div className="flex space-x-3">
+        {/* UPDATE Button */}
         <button
           onClick={() => setIsEdit(!isEdit)}
-          className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-sm hover:bg-blue-700 transition"
+          className="
+            flex-1 
+            bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 
+            text-white font-semibold 
+            py-2 px-4 
+            rounded-md 
+            shadow-md hover:shadow-lg transition-all duration-300
+          "
         >
-          Update
+          {isEdit ? 'Close Edit' : 'Update'}
         </button>
 
+        {/* Conditional Action Button: Add or Delete */}
         {local ? (
+          // ADD Button
           <button
             onClick={() => setIsCreate(!isCreate)}
-            className="flex-1 bg-green-600 text-white py-2 px-4 rounded-sm hover:bg-green-700 transition"
+            className="
+              flex-1 
+              bg-teal-600 hover:bg-teal-700 dark:bg-teal-700 dark:hover:bg-teal-600 
+              text-white font-semibold 
+              py-2 px-4 
+              rounded-md 
+              shadow-md hover:shadow-lg transition-all duration-300
+            "
           >
-            Add
+            {isCreate ? 'Close Add' : 'Add New Clock'}
           </button>
         ) : (
+          // DELETE Button
           <button
             onClick={() => deleteClock(clock.id)}
-            className="flex-1 bg-red-600 text-white py-2 px-4 rounded-sm hover:bg-red-700 transition"
+            className="
+              flex-1 
+              bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 
+              text-white font-semibold 
+              py-2 px-4 
+              rounded-md 
+              shadow-md hover:shadow-lg transition-all duration-300
+            "
           >
             Delete
           </button>
         )}
       </div>
 
+      {/* Edit Clock Form Container */}
       {isEdit && (
-        <div className="mt-4 p-4 border rounded-lg">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        <div className="mt-4 p-5 border border-blue-400 dark:border-blue-700 bg-white dark:bg-gray-800 rounded-lg shadow-inner transition-colors duration-300">
+          <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-3">
             Edit Clock
           </h3>
           <ClockForm
@@ -72,9 +110,10 @@ const ClockActions = ({
         </div>
       )}
 
+      {/* Create Clock Form Container */}
       {isCreate && (
-        <div className="mt-4 p-4 border rounded-lg">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        <div className="mt-4 p-5 border border-teal-400 dark:border-teal-700 bg-white dark:bg-gray-800 rounded-lg shadow-inner transition-colors duration-300">
+          <h3 className="text-xl font-bold text-teal-600 dark:text-teal-400 mb-3">
             Create Clock
           </h3>
           <ClockForm handleClock={handleClock} />
@@ -94,6 +133,7 @@ ClockActions.propTypes = {
     title: PropTypes.string,
     offset: PropTypes.number,
     type: PropTypes.string,
+    id:PropTypes.string
   }),
   local: PropTypes.bool,
 };

@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import React from "react";
 import ClockListItem from "./ClockListItem";
 
 /**
@@ -13,17 +12,30 @@ import ClockListItem from "./ClockListItem";
  */
 const ClockList = ({ clocks, updateClock, deleteClock, localClock }) => {
   return (
-    <div className="bg-gray-200 shadow-md rounded-lg p-6 w-full md:w-3/4 mx-auto">
-      <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+   <div 
+  className="
+    bg-white dark:bg-gray-900 
+    shadow-2xl dark:shadow-black/70 
+    border border-gray-200 dark:border-gray-700
+    rounded-2xl 
+    p-7 
+    w-full 
+    md:w-5/6 lg:w-3/4 xl:w-2/3 mx-auto 
+    transition-colors duration-500
+  "
+>
+      <h3 className="text-3xl font-bold text-gray-800 dark:text-white mb-4 
+                      bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">
         Other Clocks
       </h3>
-      <hr className="border-t-2 border-gray-300 mb-4" />
+      <hr className="border-t border-gray-300 dark:border-gray-700 mb-6" /> 
+      
       {clocks.length === 0 ? (
-        <p className="text-gray-500 italic">
-          There is no clock, please add one.
+        <p className="text-gray-500 dark:text-gray-400 italic p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+          There are no other clocks added. Please use the Add New Clock button to track a new timezone.
         </p>
       ) : (
-        <div className="grid grid-cols-1 lg:grid lg:grid-cols-2 xl:grid xl:grid-cols-3 2xl:grid 2xl:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
           {clocks.map((clock) => (
             <ClockListItem
               key={clock.id}
@@ -56,6 +68,7 @@ ClockList.propTypes = {
     offset: PropTypes.number,
     timezone: PropTypes.string,
     type: PropTypes.string,
+    date:PropTypes.string
   }),
 };
 

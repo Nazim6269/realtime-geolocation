@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import useClock from "../../hooks/useClock";
 import useTimer from "../../hooks/useTimer";
 import ClockActions from "../shared/clock-actions/ClockActions";
@@ -22,7 +22,19 @@ const LocalClock = ({ clock, updateLocalClock, createNewClock }) => {
   }, [date]);
 
   return (
-    <div className="bg-gray-200 flex-1 shadow-md rounded-lg p-6">
+    <div 
+  
+  className="
+    bg-white dark:bg-gray-800 
+    flex-1 
+    border border-gray-300 dark:border-gray-700 
+    rounded-2xl 
+    shadow-xl dark:shadow-2xl dark:shadow-black/60 
+    p-7 
+    transition-all duration-300
+    hover:shadow-2xl dark:hover:shadow-3xl
+  "
+>
       {timer && (
         <ClockDisplay
           date={timer}
@@ -31,7 +43,7 @@ const LocalClock = ({ clock, updateLocalClock, createNewClock }) => {
           title={clock.title}
         />
       )}
-      <div className="mt-4">
+      <div className="mt-6 border-t border-gray-200 dark:border-gray-700 pt-4"> 
         <ClockActions
           local={true}
           clock={clock}
@@ -52,7 +64,7 @@ LocalClock.propTypes = {
     timezone: PropTypes.string,
     type: PropTypes.string,
   }),
-  updateClock: PropTypes.func,
+  updateLocalClock: PropTypes.func,
   createNewClock: PropTypes.func,
 };
 
