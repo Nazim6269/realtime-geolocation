@@ -3,18 +3,15 @@ import { useTheme } from "../hooks/useTheme";
 
 const ErrorCard = ({ message }) => {
   const { theme } = useTheme();
-
+  const isDark = theme === "dark";
   return (
     <div
-      className={`
-        w-full max-w-sm rounded-3xl p-5 text-center
+      className={`rounded-xl p-5 shadow-md border 
         ${
-          theme === "dark"
-            ? "bg-red-800 text-red-200 shadow-lg shadow-black/50"
-            : "bg-red-100 text-red-800 shadow-md shadow-red-300"
-        }
-        transition-colors duration-300
-      `}
+          isDark
+            ? "bg-red-500/10 text-red-400 border-red-500/20"
+            : "bg-red-50 text-red-600 border-red-200"
+        }`}
     >
       <h3 className="font-semibold mb-2">⚠️ Error</h3>
       <p className="text-sm">{message}</p>

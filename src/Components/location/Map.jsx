@@ -26,7 +26,8 @@ const MapComponent = ({ lat, lng, zone }) => {
     >
       <MapContainer
         center={[lat, lng]}
-        zoom={13}
+        zoom={2}
+        scrollWheelZoom
         className="h-full w-full rounded-3xl"
       >
         <TileLayer

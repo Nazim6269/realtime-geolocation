@@ -5,6 +5,7 @@ import Footer from "./Components/navbar/Footer";
 import Navbar from "./Components/navbar/Navbar";
 import { ThemeProvider } from "./context/theme-context";
 import CustomeClock from "./screens/CustomClock";
+import EarthquakeDashboard from "./screens/EarthquakeDashboard";
 import Home from "./screens/Home";
 import WorldClocks from "./screens/WorldClocks";
 
@@ -19,6 +20,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/my-clock" element={<CustomeClock />} />
             <Route path="/world-clocks" element={<WorldClocks />} />
+            <Route path="/earthquake" element={<EarthquakeDashboard />} />
           </Routes>
 
           {/* Footer */}

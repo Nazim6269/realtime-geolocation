@@ -57,6 +57,14 @@ const Navbar = () => {
                 World Clocks
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/earthquake"
+                className={`${textColor} ${hoverColor} transition`}
+              >
+                Earthquake
+              </NavLink>
+            </li>
 
             <li>
               <NavLink
