@@ -24,7 +24,6 @@ const useGeoLocation = () => {
       {
         enableHighAccuracy: true,
         maximumAge: 1000,
-        timeout: 7000,
       } //this is also optional
     );
 
