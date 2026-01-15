@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
-import { initialClocks } from "../../data";
 import AddNew from "../Components/AddNew";
 import WeatherInfo from "../Components/WeatherInfo";
+import { initialClocks ,initialWeathers} from "../../data";
+
 import { useTheme } from "../hooks/useTheme";
+import AddNewWeather from "../Components/AddNewWeather";
+
 
 const WorldClocks = () => {
   const [time, setTime] = useState(new Date());
   const [clocks, setClocks] = useState(initialClocks);
+  const [cities, setCities] = useState(initialWeathers);
   const [hour24, setHour24] = useState(false);
   const { theme } = useTheme();
   const isDark = theme === "dark";
@@ -19,7 +23,13 @@ const WorldClocks = () => {
   const addClock = (newClock) => {
     setClocks((prev) => [...prev, newClock]);
   };
-
+  const addCity = (city) => {
+    setCities((prev) =>
+      prev.some((c) => c.city === city.city)
+        ? prev
+        : [...prev, city]
+    );
+  };
   const formatTime = (tz) =>
     time.toLocaleTimeString("en-US", {
       hour: "2-digit",
@@ -134,12 +144,11 @@ const WorldClocks = () => {
         >
           World Weathers
         </h2>
-        <AddNew onAdd={addClock}/>
+        <AddNewWeather  onAdd={addCity} />
         <div className="grid grid-cols-3 gap-y-4 items-center py-7">
-          <WeatherInfo city="London" />
-          <WeatherInfo city="Bangladesh" />
-          <WeatherInfo city="India" />
-          <WeatherInfo city="Pakistan" />
+          {cities.map((city) => (
+            <WeatherInfo key={city.id} city={city.city} />
+          ))}
         </div>
       </div>
     </div>
