@@ -16,6 +16,10 @@ const WorldClocks = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const addClock = (newClock) => {
+    setClocks((prev) => [...prev, newClock]);
+  };
+
   const formatTime = (tz) =>
     time.toLocaleTimeString("en-US", {
       hour: "2-digit",
@@ -75,7 +79,7 @@ const WorldClocks = () => {
         </header>
 
         {/* Add New Clock */}
-        <AddNew />
+        <AddNew onAdd={addClock}/>
 
         {/* Clock Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
@@ -130,7 +134,7 @@ const WorldClocks = () => {
         >
           World Weathers
         </h2>
-        <AddNew />
+        <AddNew onAdd={addClock}/>
         <div className="grid grid-cols-3 gap-y-4 items-center py-7">
           <WeatherInfo city="London" />
           <WeatherInfo city="Bangladesh" />

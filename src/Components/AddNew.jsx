@@ -1,58 +1,121 @@
-import { useState } from "react";
-import { initialClocks } from "../../data";
+import { useState, useMemo } from "react";
+import Select from "react-select";
+import { getTimeZones } from "@vvo/tzdb";
 import { useTheme } from "../hooks/useTheme";
 
-const AddNew = () => {
-  const [clocks, setClocks] = useState(initialClocks);
-  const [newCity, setNewCity] = useState("");
+const AddNew = ({ onAdd }) => {
+  const [selected, setSelected] = useState(null);
   const { theme } = useTheme();
+  const isDark = theme === "dark";
 
-  const addCity = () => {
-    if (newCity.trim()) {
-      const id = clocks.length + 1;
-      setClocks([...clocks, { id, city: newCity, timezone: newCity }]);
-      setNewCity("");
-    }
+  // Prepare timezone options once
+  const timezoneOptions = useMemo(() => {
+    return getTimeZones({ includeUtc: true }).map((tz) => {
+      const fallbackCity = tz.name.split("/").pop().replace(/_/g, " ");
+
+      return {
+        value: tz.name, // e.g. "Asia/Dhaka"
+        label:
+          tz.group ||
+          `${tz.name.replace(/_/g, " ")} (${tz.abbreviation})`,
+        city: tz.mainCities?.[0] || fallbackCity,
+        offset: tz.offset,
+      };
+    });
+  }, []);
+
+  const handleAdd = () => {
+    if (!selected) return;
+
+    onAdd({
+      id: Date.now() + Math.random(),
+      city: selected.city,
+      timezone: selected.value,
+    });
+
+    setSelected(null);
+  };
+
+  // react-select styles for dark/light theme
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      backgroundColor: isDark ? "#1f2937" : "#f9fafb",
+      borderColor: isDark ? "#4b5563" : "#d1d5db",
+      color: isDark ? "#f3f4f6" : "#111827",
+      boxShadow: "none",
+      "&:hover": { borderColor: isDark ? "#6b7280" : "#9ca3af" },
+    }),
+    menu: (base) => ({
+      ...base,
+      backgroundColor: isDark ? "#1f2937" : "#ffffff",
+      border: `1px solid ${isDark ? "#4b5563" : "#d1d5db"}`,
+    }),
+    option: (base, state) => ({
+      ...base,
+      backgroundColor: state.isSelected
+        ? isDark
+          ? "#4f46e5"
+          : "#6366f1"
+        : state.isFocused
+        ? isDark
+          ? "#374151"
+          : "#f3f4f6"
+        : "transparent",
+      color: isDark ? "#f3f4f6" : "#111827",
+    }),
+    singleValue: (base) => ({
+      ...base,
+      color: isDark ? "#f3f4f6" : "#111827",
+    }),
   };
 
   return (
-    <div className="mb-8 flex gap-4">
-      <input
-        value={newCity}
-        onChange={(e) => setNewCity(e.target.value)}
-        placeholder="Enter city / timezone"
-        className={`
-          px-5 py-3 
-          rounded-xl 
-          border ${theme === "dark" ? "border-gray-700" : "border-gray-300"}
-          ${
-            theme === "dark"
-              ? "bg-gray-800 text-white"
-              : "bg-gray-50/70 text-gray-700"
-          } 
-          shadow-inner 
-          focus:outline-none focus:ring-2 focus:ring-teal-400
-          w-full md:w-80 
-          transition-colors duration-300
-        `}
-      />
+    <div className="mb-8 flex flex-col sm:flex-row gap-4 items-end">
+      <div className="flex-1 min-w-[280px] md:min-w-[360px]">
+        <label
+          className={`block mb-1.5 text-sm font-medium ${
+            isDark ? "text-gray-300" : "text-gray-700"
+          }`}
+        >
+          Add city / timezone
+        </label>
+
+        <Select
+          value={selected}
+          onChange={setSelected}
+          options={timezoneOptions}
+          placeholder="Search for a city or timezone..."
+          isSearchable
+          styles={customStyles}
+          noOptionsMessage={() => "No timezone found"}
+          formatOptionLabel={(option) => (
+            <div>
+              <span className="font-medium">{option.label}</span>
+              <span className="text-xs text-gray-500 ml-2">
+                ({option.value})
+              </span>
+            </div>
+          )}
+        />
+      </div>
+
       <button
-        onClick={addCity}
+        onClick={handleAdd}
+        disabled={!selected}
         className={`
-    px-6 py-3
-    rounded-xl
-    text-white font-semibold
-    shadow-md hover:shadow-lg
-    hover:brightness-110
-    transition-all duration-300
-    ${
-      theme === "dark"
-        ? "bg-gradient-to-r from-blue-500  to-teal-500"
-        : "bg-gradient-to-r from-indigo-500 to-purple-500 "
-    }
-  `}
+          px-6 py-3 rounded-xl font-semibold text-white
+          shadow-md hover:shadow-lg hover:brightness-110
+          transition-all duration-300 min-w-[120px]
+          disabled:opacity-50 disabled:cursor-not-allowed
+          ${
+            isDark
+              ? "bg-gradient-to-r from-blue-600 to-teal-600"
+              : "bg-gradient-to-r from-indigo-500 to-purple-600"
+          }
+        `}
       >
-        Add City
+        Add Clock
       </button>
     </div>
   );
