@@ -1,6 +1,7 @@
 import L from "leaflet";
 import PropTypes from "prop-types";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, Polyline, Popup, TileLayer } from "react-leaflet";
+import { useLocation } from "../../context/location-context";
 import { useTheme } from "../../hooks/useTheme";
 
 const icon = new L.Icon({
@@ -11,7 +12,11 @@ const icon = new L.Icon({
 
 const MapComponent = ({ lat, lng, zone }) => {
   const { theme } = useTheme();
+  const { history } = useLocation();
   const isDark = theme === "dark";
+
+  // Convert history to array of lat/lng pairs for Polyline
+  const path = history.map(p => [p.lat, p.lng]);
 
   return (
     <div
@@ -25,7 +30,7 @@ const MapComponent = ({ lat, lng, zone }) => {
     >
       <MapContainer
         center={[lat, lng]}
-        zoom={2}
+        zoom={15}
         scrollWheelZoom
         className="h-full w-full rounded-3xl"
       >
@@ -38,10 +43,21 @@ const MapComponent = ({ lat, lng, zone }) => {
           }
         />
 
+        {/* Breadcrumb Path */}
+        <Polyline
+          positions={path}
+          color={isDark ? "#6366f1" : "#4f46e5"}
+          weight={4}
+          opacity={0.6}
+          dashArray="10, 10"
+        />
+
         <Marker position={[lat, lng]} icon={icon}>
           <Popup>
-            <b>{zone}</b> <br />
-            Live Location
+            <div className="text-center p-1">
+              <b className="text-indigo-600 block mb-1">{zone}</b>
+              <span className="text-xs text-gray-500">You are here</span>
+            </div>
           </Popup>
         </Marker>
       </MapContainer>
