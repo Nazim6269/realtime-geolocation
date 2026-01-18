@@ -5,6 +5,7 @@ import LiveTracker from "../LiveTracker";
 import Alerts from "./Alerts";
 import AnalyticStats from "./AnalyticStats";
 import MapComponent from "./Map";
+import LocationAnalytics from "./LocationAnalytics";
 import Timeline from "./TimeLine";
 import Zone from "./Zone";
 
@@ -57,8 +58,8 @@ const TrackingComponents = () => {
               Your Location
             </h1>
             <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${loading
-                ? "bg-amber-500/20 text-amber-500 animate-pulse"
-                : "bg-emerald-500/20 text-emerald-500"
+              ? "bg-amber-500/20 text-amber-500 animate-pulse"
+              : "bg-emerald-500/20 text-emerald-500"
               }`}>
               <div className={`w-2 h-2 rounded-full ${loading ? "bg-amber-500" : "bg-emerald-500"}`}></div>
               {loading ? "Updating..." : "Live"}
@@ -106,6 +107,11 @@ const TrackingComponents = () => {
               { level: "Info", text: "Location updated", time: "10:55" },
             ]}
           />
+        </div>
+
+        {/* ANALYTICS CHARTS */}
+        <div className="mb-8">
+          <LocationAnalytics isDark={isDark} />
         </div>
 
         {/* ANALYTICS */}
