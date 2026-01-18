@@ -48,8 +48,9 @@ const ClockForm = ({
     <form
       onSubmit={handleSubmit}
       className={`
-        ${isDark ? bgDark : bgLight}
-        shadow-2xl 
+        ${isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}
+        border
+        shadow-md 
         rounded-xl 
         p-6 md:p-8 
         max-w-lg mx-auto 
@@ -61,9 +62,8 @@ const ClockForm = ({
       <div>
         <label
           htmlFor="title"
-          className={`block text-sm font-semibold mb-2 ${
-            isDark ? "text-gray-300" : "text-gray-700"
-          }`}
+          className={`block text-sm font-semibold mb-2 ${isDark ? "text-gray-300" : "text-gray-700"
+            }`}
         >
           Enter Your Title
         </label>
@@ -78,10 +78,9 @@ const ClockForm = ({
             w-full p-3 
             rounded-lg 
             text-gray-900 border
-            ${
-              isDark
-                ? "bg-gray-700 border-gray-700 text-white focus:ring-teal-400"
-                : "bg-gray-50/60 border-gray-200 focus:ring-indigo-400"
+            ${isDark
+              ? "bg-gray-700 border-gray-600 text-white focus:ring-blue-500"
+              : "bg-gray-50 border-gray-200 focus:ring-blue-500"
             }
             focus:outline-none focus:ring-2 
             transition-colors duration-200
@@ -94,9 +93,8 @@ const ClockForm = ({
       <div>
         <label
           htmlFor="timezone"
-          className={`block text-sm font-semibold mb-2 ${
-            isDark ? "text-gray-300" : "text-gray-700"
-          }`}
+          className={`block text-sm font-semibold mb-2 ${isDark ? "text-gray-300" : "text-gray-700"
+            }`}
         >
           Enter Your Timezone
         </label>
@@ -108,10 +106,9 @@ const ClockForm = ({
           className={`
             w-full p-3 rounded-lg 
             text-gray-900 border
-            ${
-              isDark
-                ? "bg-gray-700 focus:ring-teal-400 text-white"
-                : "bg-gray-50/60 border-gray-200 focus:ring-indigo-400"
+            ${isDark
+              ? "bg-gray-700 border-gray-600 text-white focus:ring-blue-500"
+              : "bg-gray-50 border-gray-200 focus:ring-blue-500"
             }
             focus:outline-none focus:ring-2 
             transition-colors duration-200
@@ -130,9 +127,8 @@ const ClockForm = ({
         <div>
           <label
             htmlFor="offset"
-            className={`block text-sm font-semibold mb-2 ${
-              isDark ? "text-gray-300" : "text-gray-700"
-            }`}
+            className={`block text-sm font-semibold mb-2 ${isDark ? "text-gray-300" : "text-gray-700"
+              }`}
           >
             Enter Your Offset (Hours)
           </label>
@@ -143,10 +139,9 @@ const ClockForm = ({
             className={`
               w-full p-3 rounded-lg
               text-gray-900 border
-              ${
-                isDark
-                  ? "bg-gray-700 border-gray-700 text-white focus:ring-teal-400"
-                  : "bg-gray-50/60 border-gray-200 focus:ring-indigo-400"
+              ${isDark
+                ? "bg-gray-700 border-gray-600 text-white focus:ring-blue-500"
+                : "bg-gray-50 border-gray-200 focus:ring-blue-500"
               }
               focus:outline-none focus:ring-2 
               transition-colors duration-200
@@ -165,16 +160,14 @@ const ClockForm = ({
       <button
         type="submit"
         className={` w-full
-    flex-1 text-sm font-semibold py-2 rounded-md
+    flex-1 text-sm font-semibold py-2 rounded-lg
     transition-all duration-300 select-none
     text-white
-    bg-gradient-to-r
-    ${
-      isDark
-        ? "from-blue-600 via-cyan-600 to-teal-600 hover:from-blue-500 hover:via-cyan-500 hover:to-teal-500"
-        : "from-blue-500 via-indigo-500 to-purple-500 hover:from-blue-600 hover:via-indigo-600 hover:to-purple-600"
-    }
-     hover:shadow-lg
+    ${isDark
+            ? "bg-blue-600 hover:bg-blue-700"
+            : "bg-blue-600 hover:bg-blue-700"
+          }
+     shadow-md hover:shadow-lg
   `}
       >
         {edit ? "Update Clock" : "Create Clock"}

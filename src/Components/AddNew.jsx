@@ -58,10 +58,10 @@ const AddNew = ({ onAdd }) => {
           ? "#4f46e5"
           : "#6366f1"
         : state.isFocused
-        ? isDark
-          ? "#374151"
-          : "#f3f4f6"
-        : "transparent",
+          ? isDark
+            ? "#374151"
+            : "#f3f4f6"
+          : "transparent",
       color: isDark ? "#f3f4f6" : "#111827",
     }),
     singleValue: (base) => ({
@@ -74,9 +74,8 @@ const AddNew = ({ onAdd }) => {
     <div className="mb-8 flex flex-col sm:flex-row gap-4 items-end">
       <div className="flex-1 min-w-[280px] md:min-w-[360px]">
         <label
-          className={`block mb-1.5 text-sm font-medium ${
-            isDark ? "text-gray-300" : "text-gray-700"
-          }`}
+          className={`block mb-1.5 text-sm font-medium ${isDark ? "text-gray-300" : "text-gray-700"
+            }`}
         >
           Add city / timezone
         </label>
@@ -105,13 +104,11 @@ const AddNew = ({ onAdd }) => {
         disabled={!selected}
         className={`
           px-6 py-3 rounded-xl font-semibold text-white
-          shadow-md hover:shadow-lg hover:brightness-110
           transition-all duration-300 min-w-[120px]
           disabled:opacity-50 disabled:cursor-not-allowed
-          ${
-            isDark
-              ? "bg-gradient-to-r from-blue-600 to-teal-600"
-              : "bg-gradient-to-r from-indigo-500 to-purple-600"
+          ${isDark
+            ? "bg-blue-600 hover:bg-blue-700 shadow-md"
+            : "bg-blue-600 hover:bg-blue-700 shadow-md"
           }
         `}
       >

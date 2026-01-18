@@ -19,11 +19,10 @@ const TrackingComponents = () => {
     return (
       <div
         className={`rounded-xl p-5 shadow-md border 
-        ${
-          isDark
+        ${isDark
             ? "bg-red-500/10 text-red-400 border-red-500/20"
             : "bg-red-50 text-red-600 border-red-200"
-        }`}
+          }`}
       >
         ⚠️ {error}
       </div>
@@ -33,13 +32,12 @@ const TrackingComponents = () => {
   if (!position)
     return (
       <div
-        className={`rounded-xl p-5 shadow-md border animate-pulse 
+        className={`rounded-xl p-5 border animate-pulse 
         tracking-widest uppercase text-sm
-        ${
-          isDark
-            ? "bg-gradient-to-br from-gray-900 via-gray-950 to-black text-gray-300 border-gray-700"
-            : "bg-white text-gray-600 border-gray-200"
-        }`}
+        ${isDark
+            ? "bg-gray-800 text-gray-300 border-gray-700"
+            : "bg-white text-gray-600 border-gray-200 shadow-sm"
+          }`}
       >
         📡 Fetching live location...
       </div>
@@ -47,23 +45,13 @@ const TrackingComponents = () => {
 
   /* ------------------ MAIN UI ------------------ */
   return (
-    <div
-      className={`
-        ${
-          isDark
-            ? "bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white"
-            : "bg-lightPrimaryBg text-gray-900"
-        }
-        min-h-screen transition-colors duration-500
-      `}
-    >
+    <div className="w-full transition-colors duration-500">
       <div className="max-w-7xl mx-auto">
         {/* HEADER */}
         <header className="flex justify-between items-center mb-6">
           <h1
-            className={`text-3xl font-extrabold ${
-              isDark ? "text-gray-400" : "text-gray-800"
-            }`}
+            className={`text-3xl font-extrabold ${isDark ? "text-gray-400" : "text-gray-800"
+              }`}
           >
             Your Location
           </h1>

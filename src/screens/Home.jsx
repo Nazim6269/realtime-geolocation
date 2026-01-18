@@ -8,11 +8,7 @@ const Home = () => {
   return (
     <div
       className={`
-        ${
-          isDark
-            ? "bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white"
-            : "bg-lightPrimaryBg text-gray-900"
-        }
+        ${isDark ? "bg-gray-900 text-white" : "bg-white text-gray-900"}
         min-h-screen transition-colors duration-500
       `}
     >

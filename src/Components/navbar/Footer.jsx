@@ -35,10 +35,7 @@ const Footer = () => {
           {/* BRAND */}
           <div className="flex flex-col space-y-2 md:items-start items-center">
             <div
-              className={`${isDark
-                  ? "from-blue-500 to-teal-500"
-                  : "from-indigo-500 to-purple-500"
-                } text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r `}
+              className={`${isDark ? "text-blue-400" : "text-blue-600"} text-3xl font-extrabold`}
             >
               Zentra
             </div>

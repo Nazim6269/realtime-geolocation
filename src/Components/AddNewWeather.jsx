@@ -57,10 +57,10 @@ const AddNewWeather = ({ onAdd }) => {
           ? "#4f46e5"
           : "#6366f1"
         : state.isFocused
-        ? isDark
-          ? "#374151"
-          : "#f3f4f6"
-        : "transparent",
+          ? isDark
+            ? "#374151"
+            : "#f3f4f6"
+          : "transparent",
       color: isDark ? "#f3f4f6" : "#111827",
     }),
     singleValue: (base) => ({
@@ -73,9 +73,8 @@ const AddNewWeather = ({ onAdd }) => {
     <div className="flex flex-col sm:flex-row gap-4 items-end mb-6">
       <div className="flex-1 min-w-[280px] md:min-w-[360px]">
         <label
-          className={`block mb-1.5 text-sm font-medium ${
-            isDark ? "text-gray-300" : "text-gray-700"
-          }`}
+          className={`block mb-1.5 text-sm font-medium ${isDark ? "text-gray-300" : "text-gray-700"
+            }`}
         >
           Add city for weather
         </label>
@@ -96,12 +95,11 @@ const AddNewWeather = ({ onAdd }) => {
         disabled={!selected}
         className={`
           px-6 py-3 rounded-xl font-semibold text-white
-          shadow-md transition-all min-w-[120px]
+          transition-all min-w-[120px]
           disabled:opacity-50 disabled:cursor-not-allowed
-          ${
-            isDark
-              ? "bg-gradient-to-r from-cyan-600 to-blue-600"
-              : "bg-gradient-to-r from-sky-500 to-indigo-600"
+          ${isDark
+            ? "bg-blue-600 hover:bg-blue-700 shadow-md"
+            : "bg-blue-600 hover:bg-blue-700 shadow-md"
           }
         `}
       >

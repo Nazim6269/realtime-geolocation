@@ -29,7 +29,7 @@ const ClockDisplay = ({
 
         <span
           className={`shrink-0 text-[10px] px-2.5 py-1 rounded-md font-bold uppercase tracking-widest
-          ${isDark ? "bg-blue-500/20 text-blue-400" : "bg-blue-50 text-blue-600"}`}
+          ${isDark ? "bg-gray-700 text-blue-400" : "bg-blue-100 text-blue-600"}`}
         >
           {timezone || "UTC"}
         </span>
@@ -50,7 +50,7 @@ const ClockDisplay = ({
 
         <p
           className={`mt-1 font-medium
-          ${isDark ? "text-gray-500" : "text-gray-400"} 
+          ${isDark ? "text-gray-400" : "text-gray-500"} 
           ${dateClass || "text-sm"}`}
         >
           {format(date, "EEEE, MMMM do yyyy")}
@@ -58,17 +58,17 @@ const ClockDisplay = ({
       </div>
 
       {/* Offset Info */}
-      <div className={`flex items-center gap-2 pt-4 border-t ${isDark ? "border-gray-800" : "border-gray-100"}`}>
+      <div className={`flex items-center gap-2 pt-4 border-t ${isDark ? "border-gray-700" : "border-gray-100"}`}>
         <span
           className={`text-[10px] font-bold uppercase tracking-widest
-          ${isDark ? "text-gray-600" : "text-gray-400"}`}
+          ${isDark ? "text-gray-500" : "text-gray-400"}`}
         >
           UTC Offset
         </span>
 
         <span
           className={`text-xs font-mono font-bold px-2 py-0.5 rounded
-          ${isDark ? "bg-gray-800 text-teal-400" : "bg-gray-50 text-teal-600"}`}
+          ${isDark ? "bg-gray-700 text-teal-400" : "bg-gray-50 text-teal-600"}`}
         >
           {offsetHr >= 0
             ? `+${Math.abs(offsetHr).toFixed(1)}`

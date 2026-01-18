@@ -6,32 +6,27 @@ const Zone = ({ zoneName, status, location, speed, signal, progress }) => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  // Status gradients ()
   const statusColors = {
-    Safe: "from-teal-600 to-green-800",
-    Monitoring: "from-yellow-500 to-orange-600",
-    Alert: "from-red-600 to-rose-700",
+    Safe: isDark ? "bg-teal-900 border-teal-700 text-teal-100" : "bg-teal-50 border-teal-200 text-teal-800",
+    Monitoring: isDark ? "bg-yellow-900 border-yellow-700 text-yellow-100" : "bg-yellow-50 border-yellow-200 text-yellow-800",
+    Alert: isDark ? "bg-red-900 border-red-700 text-red-100" : "bg-red-50 border-red-200 text-red-800",
   };
 
-  // Mode-based backgrounds
-  const gradient = statusColors[status] || "from-gray-700 to-gray-900";
+  const containerStyle = isDark
+    ? "bg-gray-800 border-gray-700 text-white"
+    : "bg-white border-gray-200 text-gray-900 shadow-md";
 
   return (
     <div
-      className={`relative rounded-3xl p-6 overflow-hidden hover:scale-105 transition-transform duration-300 border bg-gradient-to-br ${gradient} text-white shadow-2xl border-white/10`}
+      className={`relative rounded-2xl p-6 transition-all duration-300 border ${containerStyle}`}
     >
-      {/* DARK MODE GLOW */}
-      {isDark && (
-        <div className="absolute inset-0 bg-black/20 backdrop-blur-2xl"></div>
-      )}
-
       {/* HEADER */}
-      <div className="relative flex justify-between items-center">
-        <h2 className="text-lg font-bold tracking-wide">{zoneName}</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold tracking-tight">{zoneName}</h2>
 
         <span
-          className={`px-3 py-1 text-xs rounded-full font-medium
-            ${isDark ? "bg-black/30 text-white" : "bg-gray-100 text-gray-700"}
+          className={`px-3 py-1 text-xs rounded-full font-bold uppercase tracking-wider border
+            ${statusColors[status] || "bg-gray-100 border-gray-200 text-gray-700"}
           `}
         >
           {status}
@@ -39,53 +34,40 @@ const Zone = ({ zoneName, status, location, speed, signal, progress }) => {
       </div>
 
       {/* LOCATION */}
-      <p
-        className={`relative mt-2 text-sm
-          ${isDark ? "text-gray-200" : "text-gray-600"}
-        `}
-      >
+      <p className={`text-sm mb-6 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
         📍 {location}
       </p>
 
       {/* STATS */}
-      <div className="relative grid grid-cols-3 gap-4 mt-5">
+      <div className="grid grid-cols-3 gap-4">
         <Stat label="Speed" value={`${speed} km/h`} dark={isDark} />
         <Stat label="Signal" value={`${signal}%`} dark={isDark} />
         <Stat label="Zone" value={status} dark={isDark} />
       </div>
 
       {/* PROGRESS */}
-      <div className="relative mt-6">
-        <p
-          className={`text-xs mb-1
-            ${isDark ? "text-gray-200" : "text-gray-600"}
-          `}
-        >
-          Zone Progress
-        </p>
+      <div className="mt-8">
+        <div className="flex justify-between items-end mb-2">
+          <p className={`text-xs font-bold uppercase tracking-widest ${isDark ? "text-gray-500" : "text-gray-400"}`}>
+            Zone Progress
+          </p>
+          <p className="text-xs font-mono font-bold">{progress}%</p>
+        </div>
 
         <div
           className={`
             w-full h-2 rounded-full overflow-hidden
-            ${isDark ? "bg-black/30" : "bg-gray-200"}
+            ${isDark ? "bg-gray-700" : "bg-gray-100"}
           `}
         >
           <div
-            className={`h-full transition-all
-              ${isDark ? "bg-white/70" : "bg-blue-600"}
+            className={`h-full transition-all duration-1000
+              ${isDark ? "bg-blue-500" : "bg-blue-600"}
             `}
             style={{ width: `${progress}%` }}
           />
         </div>
       </div>
-
-      {/* RADAR RINGS (DARK ONLY) */}
-      {isDark && (
-        <>
-          <div className="absolute -bottom-10 -right-10 w-36 h-36 rounded-full border border-white/20 animate-pulse"></div>
-          <div className="absolute -bottom-16 -right-16 w-52 h-52 rounded-full border border-white/10 animate-pulse"></div>
-        </>
-      )}
     </div>
   );
 };

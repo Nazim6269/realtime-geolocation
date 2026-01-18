@@ -20,17 +20,14 @@ const LocalClock = ({ clock, updateLocalClock, createNewClock }) => {
     <div
       className={`
         relative overflow-hidden
-        rounded-3xl p-8
+        rounded-2xl p-8
         border transition-all duration-500
         ${isDark
-          ? "bg-gray-800/40 border-gray-700/50 shadow-2xl backdrop-blur-xl"
-          : "bg-white border-gray-200 shadow-xl hover:shadow-2xl"
+          ? "bg-gray-800 border-gray-700 shadow-lg"
+          : "bg-white border-gray-200 shadow-md"
         }
       `}
     >
-      {/* Decorative background element */}
-      <div className={`absolute -right-20 -top-20 w-64 h-64 rounded-full blur-3xl opacity-10 bg-gradient-to-br ${isDark ? "from-blue-500 to-teal-500" : "from-blue-400 to-indigo-400"}`} />
-
       <div className="relative z-10">
         {timer && (
           <ClockDisplay
@@ -44,7 +41,7 @@ const LocalClock = ({ clock, updateLocalClock, createNewClock }) => {
         )}
 
         <div
-          className={`mt-8 pt-6 border-t ${isDark ? "border-gray-700/50" : "border-gray-100"
+          className={`mt-8 pt-6 border-t ${isDark ? "border-gray-700" : "border-gray-100"
             }`}
         >
           <ClockActions

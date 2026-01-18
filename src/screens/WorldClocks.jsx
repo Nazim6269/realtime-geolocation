@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AddNew from "../Components/AddNew";
 import WeatherInfo from "../Components/WeatherInfo";
-import { initialClocks ,initialWeathers} from "../../data";
+import { initialClocks, initialWeathers } from "../../data";
 
 import { useTheme } from "../hooks/useTheme";
 import AddNewWeather from "../Components/AddNewWeather";
@@ -49,20 +49,18 @@ const WorldClocks = () => {
     <div
       className={`
     min-h-screen p-8 transition-colors duration-500
-    ${
-      theme === "dark"
-        ? "bg-gray-900 text-white"
-        : "bg-lightPrimaryBg text-gray-900"
-    }
+    ${isDark
+          ? "bg-gray-900 text-white"
+          : "bg-white text-gray-900"
+        }
   `}
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <header className="flex flex-col md:flex-row justify-start gap-3 items-center mb-6">
           <h1
-            className={`text-3xl font-bold ${
-              theme === "dark" ? "text-white" : "text-gray-800"
-            }`}
+            className={`text-3xl font-bold ${theme === "dark" ? "text-white" : "text-gray-800"
+              }`}
           >
             World Clocks
           </h1>
@@ -76,11 +74,10 @@ const WorldClocks = () => {
     shadow-md hover:shadow-lg
     hover:brightness-110
     transition-all duration-300
-    ${
-      theme === "dark"
-        ? " border border-gray-500 text-darkTextColor"
-        : "border border-purple-500 text-lightPrimaryTextColor"
-    }
+    ${theme === "dark"
+                  ? " border border-gray-500 text-darkTextColor"
+                  : "border border-purple-500 text-lightPrimaryTextColor"
+                }
   `}
             >
               {hour24 ? "12-Hour" : "24-Hour"}
@@ -89,7 +86,7 @@ const WorldClocks = () => {
         </header>
 
         {/* Add New Clock */}
-        <AddNew onAdd={addClock}/>
+        <AddNew onAdd={addClock} />
 
         {/* Clock Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
@@ -98,11 +95,10 @@ const WorldClocks = () => {
               key={clock.id}
               className={`
             rounded-xl shadow-md p-6 flex flex-col items-center transition-all duration-300 hover:shadow-lg relative
-            ${
-              isDark
-                ? "bg-gray-800 shadow-xl shadow-black/40"
-                : "bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 text-gray-800 shadow-xl shadow-gray-300"
-            }
+            ${isDark
+                  ? "bg-gray-800 shadow-xl shadow-black/40"
+                  : "bg-white text-gray-800 shadow-md border border-gray-100"
+                }
           `}
             >
               <button
@@ -112,23 +108,20 @@ const WorldClocks = () => {
                 ✕
               </button>
               <h2
-                className={`text-2xl font-bold mb-2 ${
-                  theme === "dark" ? "text-white" : "text-gray-800"
-                }`}
+                className={`text-2xl font-bold mb-2 ${theme === "dark" ? "text-white" : "text-gray-800"
+                  }`}
               >
                 {clock.city}
               </h2>
               <p
-                className={`${
-                  isDark ? "text-darkTextColor" : "text-lightTextColor"
-                } text-2xl font-bold`}
+                className={`${isDark ? "text-darkTextColor" : "text-lightTextColor"
+                  } text-2xl font-bold`}
               >
                 {formatTime(clock.timezone)}
               </p>
               <p
-                className={`text-base mt-1 ${
-                  theme === "dark" ? "text-gray-400" : "text-gray-600"
-                }`}
+                className={`text-base mt-1 ${theme === "dark" ? "text-gray-400" : "text-gray-600"
+                  }`}
               >
                 {formatDate(clock.timezone)}
               </p>
@@ -138,13 +131,12 @@ const WorldClocks = () => {
 
         {/* Weather Section */}
         <h2
-          className={`text-3xl font-bold my-6 ${
-            theme === "dark" ? "text-white" : "text-gray-800"
-          }`}
+          className={`text-3xl font-bold my-6 ${theme === "dark" ? "text-white" : "text-gray-800"
+            }`}
         >
           World Weathers
         </h2>
-        <AddNewWeather  onAdd={addCity} />
+        <AddNewWeather onAdd={addCity} />
         <div className="grid grid-cols-3 gap-y-4 items-center py-7">
           {cities.map((city) => (
             <WeatherInfo key={city.id} city={city.city} />

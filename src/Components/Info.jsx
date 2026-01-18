@@ -8,12 +8,11 @@ export const Info = ({ label, value }) => {
   return (
     <div
       className={`
-    rounded-lg p-2 text-center
-    ${
-      isDark
-        ? "bg-white/10 text-white"
-        : "bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 text-gray-900 shadow-md"
-    }
+    rounded-lg p-2 text-center border
+    ${isDark
+          ? "bg-gray-700 border-gray-600 text-white"
+          : "bg-gray-50 border-gray-100 text-gray-900 shadow-sm"
+        }
     transition-colors duration-300
   `}
     >

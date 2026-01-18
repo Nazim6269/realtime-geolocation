@@ -7,12 +7,11 @@ const LoadingCard = ({ text }) => {
 
   return (
     <div
-      className={`rounded-xl p-5 shadow-md border animate-pulse 
+      className={`rounded-xl p-5 border animate-pulse 
         tracking-widest uppercase text-sm
-        ${
-          isDark
-            ? "bg-gradient-to-br from-gray-900 via-gray-950 to-black text-gray-300 border-gray-700"
-            : "bg-white text-gray-600 border-gray-200"
+        ${isDark
+          ? "bg-gray-800 text-gray-300 border-gray-700"
+          : "bg-white text-gray-600 border-gray-200 shadow-sm"
         }`}
     >
       {text}

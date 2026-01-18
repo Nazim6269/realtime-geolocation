@@ -61,12 +61,11 @@ const WeatherInfo = ({ city }) => {
   return (
     <div
       className={`
-    rounded-3xl p-6 w-full max-w-sm space-y-4 transition-transform hover:scale-105
-    ${
-      isDark
-        ? "bg-gray-800 text-white shadow-xl shadow-black/40"
-        : "bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 text-gray-800 shadow-xl shadow-gray-300"
-    }
+    rounded-2xl p-6 w-full max-w-sm space-y-4 transition-all duration-300 border
+    ${isDark
+          ? "bg-gray-800 border-gray-700 text-white shadow-md"
+          : "bg-white border-gray-100 text-gray-800 shadow-md"
+        }
   `}
     >
       {/* Header */}
@@ -81,9 +80,8 @@ const WeatherInfo = ({ city }) => {
 
       {/* Temperature */}
       <p
-        className={`${
-          isDark ? "text-darkTextColor" : "text-lightTextColor"
-        } text-4xl font-bold`}
+        className={`${isDark ? "text-darkTextColor" : "text-lightTextColor"
+          } text-4xl font-bold`}
       >
         {data.temp}°
       </p>
@@ -91,9 +89,8 @@ const WeatherInfo = ({ city }) => {
 
       {/* Condition */}
       <span
-        className={`inline-block px-3 py-1 rounded-full text-sm ${
-          theme === "dark" ? "bg-gray-700" : "bg-white/70"
-        }`}
+        className={`inline-block px-3 py-1 rounded-full text-sm ${theme === "dark" ? "bg-gray-700" : "bg-white/70"
+          }`}
       >
         {data.condition}
       </span>

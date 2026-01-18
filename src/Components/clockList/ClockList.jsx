@@ -20,15 +20,15 @@ const ClockList = ({ clocks, updateClock, deleteClock, localClock }) => {
         <div
           className={`
             flex flex-col items-center justify-center
-            p-12 rounded-3xl border-2 border-dashed
+            p-12 rounded-2xl border-2 border-dashed
             transition-all duration-300
             ${isDark
-              ? "bg-gray-800/20 border-gray-700/50 text-gray-400"
-              : "bg-white border-gray-200 text-gray-500 shadow-sm"
+              ? "bg-gray-800 border-gray-700 text-gray-400"
+              : "bg-gray-50 border-gray-200 text-gray-500 shadow-sm"
             }
           `}
         >
-          <div className={`p-4 rounded-full mb-4 ${isDark ? "bg-gray-800" : "bg-gray-100"}`}>
+          <div className={`p-4 rounded-full mb-4 ${isDark ? "bg-gray-700" : "bg-gray-100"}`}>
             <svg className="w-12 h-12 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>

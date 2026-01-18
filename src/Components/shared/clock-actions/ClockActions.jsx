@@ -25,9 +25,8 @@ const ClockActions = ({
   return (
     <div
       className={`
-    ${isDark ? bgDark : bgLight}
-    backdrop-blur-md backdrop-saturate-150
-    shadow-lg dark:shadow-black/50
+    ${isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}
+    border
     rounded-xl px-3 py-3
     max-w-full mx-auto
     transition-all duration-300
@@ -41,14 +40,10 @@ const ClockActions = ({
           className={`
     flex-1 text-sm font-semibold py-2 rounded-md
     transition-all duration-300 select-none
-    text-white
-    bg-gradient-to-r
-    ${
-      isDark
-        ? "from-blue-600 via-cyan-600 to-teal-600 hover:from-blue-500 hover:via-cyan-500 hover:to-teal-500"
-        : "from-blue-500 via-indigo-500 to-purple-500 hover:from-blue-600 hover:via-indigo-600 hover:to-purple-600"
-    }
-    hover:scale-[1.03] hover:shadow-lg
+    ${isDark
+              ? "bg-blue-600 hover:bg-blue-700 text-white"
+              : "bg-blue-500 hover:bg-blue-600 text-white"
+            }
     active:scale-95
   `}
         >
@@ -62,14 +57,10 @@ const ClockActions = ({
             className={`
     flex-1 text-sm font-semibold py-2 rounded-md
     transition-all duration-300 select-none
-    text-white
-    bg-gradient-to-r
-    ${
-      isDark
-        ? "from-blue-600 via-cyan-600 to-teal-600 hover:from-blue-500 hover:via-cyan-500 hover:to-teal-500"
-        : "from-blue-500 via-indigo-500 to-purple-500 hover:from-blue-600 hover:via-indigo-600 hover:to-purple-600"
-    }
-    hover:scale-[1.03] hover:shadow-lg
+    ${isDark
+                ? "bg-teal-600 hover:bg-teal-700 text-white"
+                : "bg-teal-500 hover:bg-teal-600 text-white"
+              }
     active:scale-95
   `}
           >
@@ -81,14 +72,10 @@ const ClockActions = ({
             className={`
     flex-1 text-sm font-semibold py-2 rounded-md
     transition-all duration-300 select-none
-    text-white
-    bg-gradient-to-r
-    ${
-      isDark
-        ? "from-red-600 via-rose-600 to-orange-600 hover:from-red-500 hover:via-rose-500 hover:to-orange-500"
-        : "from-red-500 via-rose-500 to-orange-500 hover:from-red-600 hover:via-rose-600 hover:to-orange-600"
-    }
-    hover:scale-[1.03] hover:shadow-lg
+    ${isDark
+                ? "bg-red-600 hover:bg-red-700 text-white"
+                : "bg-red-500 hover:bg-red-600 text-white"
+              }
     active:scale-95
   `}
           >
@@ -101,18 +88,16 @@ const ClockActions = ({
       {isEdit && (
         <div
           className={`
-        mt-3 p-3 rounded-lg backdrop-blur-sm
-        ${
-          isDark
-            ? "bg-gray-800/70 border border-blue-700/40"
-            : "bg-white/70 border border-blue-400/50"
-        }
+        mt-3 p-3 rounded-lg
+        ${isDark
+              ? "bg-gray-900 border border-gray-700"
+              : "bg-gray-50 border border-gray-200"
+            }
       `}
         >
           <h3
-            className={`text-sm font-semibold mb-2 ${
-              isDark ? "text-blue-400" : "text-blue-600"
-            }`}
+            className={`text-sm font-semibold mb-2 ${isDark ? "text-blue-400" : "text-blue-600"
+              }`}
           >
             Edit
           </h3>
@@ -130,18 +115,16 @@ const ClockActions = ({
       {isCreate && (
         <div
           className={`
-        mt-3 p-3 rounded-lg backdrop-blur-sm
-        ${
-          isDark
-            ? "bg-gray-800/70 border border-teal-500"
-            : "bg-white/70 border border-indigo-400"
-        }
+        mt-3 p-3 rounded-lg
+        ${isDark
+              ? "bg-gray-900 border border-gray-700"
+              : "bg-gray-50 border border-gray-200"
+            }
       `}
         >
           <h3
-            className={`text-sm font-semibold mb-2 ${
-              isDark ? "text-teal-400" : "text-indigo-600"
-            }`}
+            className={`text-sm font-semibold mb-2 ${isDark ? "text-teal-400" : "text-teal-600"
+              }`}
           >
             Create
           </h3>

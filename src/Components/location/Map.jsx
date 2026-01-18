@@ -16,11 +16,10 @@ const MapComponent = ({ lat, lng, zone }) => {
   return (
     <div
       className={`
-        h-[650px] rounded-3xl overflow-hidden transition-colors duration-500
-        ${
-          isDark
-            ? "bg-gradient-to-br from-slate-800 via-slate-900 to-black shadow-2xl"
-            : "bg-white shadow-lg shadow-gray-300/50"
+        h-[650px] rounded-2xl overflow-hidden transition-colors duration-500 border
+        ${isDark
+          ? "bg-gray-800 border-gray-700 shadow-md"
+          : "bg-white border-gray-100 shadow-md"
         }
       `}
     >

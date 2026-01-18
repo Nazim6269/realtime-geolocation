@@ -24,11 +24,8 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* LOGO */}
           <h1
-            className={`${
-              isDark
-                ? "from-blue-500 to-teal-500"
-                : "from-indigo-500 to-purple-500"
-            } text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r `}
+            className={`${isDark ? "text-blue-400" : "text-blue-600"
+              } text-3xl font-extrabold`}
           >
             <NavLink to="/">Zentra</NavLink>
           </h1>
@@ -88,14 +85,12 @@ const Navbar = () => {
 
       {/* MOBILE MENU */}
       <div
-        className={`md:hidden transition-all duration-300 overflow-hidden ${
-          isOpen ? "max-h-56" : "max-h-0"
-        }`}
+        className={`md:hidden transition-all duration-300 overflow-hidden ${isOpen ? "max-h-56" : "max-h-0"
+          }`}
       >
         <ul
-          className={`${isDark ? "bg-gray-900" : "bg-white"} border-t ${
-            isDark ? "border-gray-700" : "border-gray-200"
-          } space-y-2 p-4`}
+          className={`${isDark ? "bg-gray-900" : "bg-white"} border-t ${isDark ? "border-gray-700" : "border-gray-200"
+            } space-y-2 p-4`}
         >
           {["/", "/my-clock", "/contact"].map((path, i) => {
             const labels = ["Home", "My Clocks", "Contact"];

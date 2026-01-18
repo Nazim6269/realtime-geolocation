@@ -47,16 +47,15 @@ const EarthquakeDashboard = () => {
     <div
       className={`
       min-h-screen p-8 transition-colors duration-500
-      ${isDark ? "bg-gray-900 text-white" : "bg-lightPrimaryBg text-gray-900"}
+      ${isDark ? "bg-gray-900 text-white" : "bg-white text-gray-900"}
     `}
     >
       <div className="max-w-7xl mx-auto">
         {/* HEADER */}
         <header className="flex flex-col md:flex-row justify-between items-center mb-8">
           <h1
-            className={`${
-              isDark ? "text-darkTextColor" : "text-lightPrimaryTextColor"
-            } text-2xl font-bold`}
+            className={`${isDark ? "text-darkTextColor" : "text-lightPrimaryTextColor"
+              } text-2xl font-bold`}
           >
             Earthquake Dashboard
           </h1>
@@ -64,11 +63,10 @@ const EarthquakeDashboard = () => {
           <span
             className={`
             px-4 py-2 rounded-full text-sm font-semibold
-            ${
-              isDark
+            ${isDark
                 ? "border border-gray-500 text-darkTextColor"
                 : "border border-purple-500 text-lightTextColor"
-            }
+              }
           `}
           >
             LIVE MONITORING
@@ -81,11 +79,10 @@ const EarthquakeDashboard = () => {
           <div
             className={`
             rounded-xl shadow-md p-6 transition-all duration-300
-            ${
-              isDark
+            ${isDark
                 ? "bg-gray-800 shadow-xl shadow-black/40"
-                : "bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 text-gray-800 shadow-xl shadow-gray-300"
-            }
+                : "bg-white text-gray-800 shadow-md border border-gray-100"
+              }
           `}
           >
             {/* Filter */}
@@ -96,11 +93,10 @@ const EarthquakeDashboard = () => {
                 onChange={(e) => setMinMag(+e.target.value)}
                 className={`
                 w-full mt-2 rounded-xl p-3
-                ${
-                  isDark
+                ${isDark
                     ? "bg-gray-900 border border-gray-600 text-white"
                     : "bg-white border border-gray-300"
-                }
+                  }
               `}
               >
                 <option value={2.5}>2.5+</option>
@@ -121,14 +117,13 @@ const EarthquakeDashboard = () => {
                   <div
                     className={`
                   rounded-xl p-5 mb-6
-                  ${isDark ? "bg-gray-900" : "bg-white/60"}
+                  ${isDark ? "bg-gray-900" : "bg-gray-50"}
                 `}
                   >
                     <div className="flex justify-between mb-3">
                       <h3
-                        className={`${
-                          isDark ? "text-darkTextColor" : "text-lightTextColor"
-                        } font-bold`}
+                        className={`${isDark ? "text-white" : "text-gray-900"
+                          } font-bold`}
                       >
                         Strongest Today
                       </h3>
@@ -169,18 +164,16 @@ const EarthquakeDashboard = () => {
                     key={q.id}
                     className={`
                     rounded-xl p-4 transition
-                    ${
-                      isDark
+                    ${isDark
                         ? "bg-gray-900 hover:bg-gray-700"
-                        : "bg-white hover:bg-gray-100"
-                    }
+                        : "bg-gray-50 hover:bg-gray-100"
+                      }
                   `}
                   >
                     <div className="flex justify-between">
                       <span
-                        className={`${
-                          isDark ? "text-darkTextColor" : "text-lightTextColor"
-                        } font-semibold`}
+                        className={`${isDark ? "text-white" : "text-gray-900"
+                          } font-semibold`}
                       >
                         {q.properties.place}
                       </span>
@@ -203,11 +196,10 @@ const EarthquakeDashboard = () => {
           <div
             className={`
             rounded-xl overflow-hidden shadow-md transition
-            ${
-              isDark
+            ${isDark
                 ? "bg-gray-800 shadow-black/40"
-                : "bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 shadow-gray-300"
-            }
+                : "bg-white shadow-md border border-gray-100"
+              }
           `}
           >
             <EarthquakeMap quakes={filtered} />

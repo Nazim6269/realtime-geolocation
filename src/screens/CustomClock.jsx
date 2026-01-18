@@ -21,18 +21,11 @@ const CustomClock = () => {
         flex flex-col flex-grow items-center gap-12 
         p-6 md:p-10 lg:p-16
         transition-colors duration-500
-        ${isDark
-          ? "bg-gradient-to-br from-gray-900 via-gray-950 to-black"
-          : "bg-gray-50 text-gray-900"
-        }
+        ${isDark ? "bg-gray-900 text-white" : "bg-white text-gray-900"}
       `}
     >
       <header className="max-w-7xl w-full text-center space-y-4">
-        <h1 className={`${isDark
-          ? "from-blue-500 to-teal-500"
-          : "from-indigo-500 to-purple-500"
-          } text-4xl md:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r `}
-        >
+        <h1 className={`text-4xl md:text-5xl font-extrabold tracking-tight ${isDark ? "text-blue-400" : "text-blue-600"}`}>
           Personal Clock Dashboard
         </h1>
         <p className={`text-lg ${isDark ? "text-gray-400" : "text-gray-600"} max-w-2xl mx-auto`}>

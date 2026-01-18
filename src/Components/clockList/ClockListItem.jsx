@@ -25,10 +25,10 @@ const ClockListItem = ({ clock, updateClock, deleteClock, localClock }) => {
         rounded-2xl 
         p-6
         transition-all duration-500
-        hover:scale-[1.02]
+        hover:scale-[1.01]
         ${isDark
-          ? "bg-gray-800/40 border border-gray-700/50 shadow-xl hover:shadow-2xl hover:bg-gray-800/60"
-          : "bg-white border border-gray-100 shadow-lg hover:shadow-xl hover:bg-gray-50/50"
+          ? "bg-gray-800 border border-gray-700 shadow-md hover:bg-gray-750"
+          : "bg-white border border-gray-100 shadow-sm hover:bg-gray-50"
         }
       `}
     >
@@ -39,16 +39,15 @@ const ClockListItem = ({ clock, updateClock, deleteClock, localClock }) => {
             timezone={clock.timezone}
             offset={clock.offset}
             title={clock.title}
-            titleClass={`text-xl font-bold mb-1 tracking-tight ${isDark ? "text-white" : "text-gray-800"}`}
+            titleClass={`text-xl font-bold mb-1 tracking-tight ${isDark ? "text-white" : "text-gray-900"}`}
             timeClass={`text-3xl font-mono font-semibold ${isDark ? "text-blue-400" : "text-blue-600"}`}
-            dateClass={`text-sm ${isDark ? "text-gray-500" : "text-gray-400"}`}
+            dateClass={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}
           />
 
           {localClock && (
             <div className={`mt-4 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${isDark ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-600"
               }`}>
               <span className="mr-1.5 flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-teal-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
               </span>
               {formatDistance(localClock, timer)} relative to local
@@ -56,7 +55,7 @@ const ClockListItem = ({ clock, updateClock, deleteClock, localClock }) => {
           )}
         </div>
 
-        <div className={`pt-4 border-t ${isDark ? "border-gray-700/50" : "border-gray-100"}`}>
+        <div className={`pt-4 border-t ${isDark ? "border-gray-700" : "border-gray-100"}`}>
           <ClockActions
             clock={clock}
             updateClock={updateClock}
