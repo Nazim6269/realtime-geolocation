@@ -4,14 +4,14 @@ import useGeoLocation from "../hooks/useGeoLocation";
 import { useTheme } from "../hooks/useTheme";
 
 export default function LiveTracker() {
-  const { position, error } = useGeoLocation();
+  const { position, error, loading } = useGeoLocation();
   const { info } = useDetailsInfo();
   const { theme } = useTheme();
 
   const isDark = theme === "dark";
 
   /* ---------- ERROR STATE ---------- */
-  if (error)
+  if (error && !position)
     return (
       <div
         className={`rounded-xl p-5 shadow-md border
@@ -25,7 +25,7 @@ export default function LiveTracker() {
     );
 
   /* ---------- LOADING STATE ---------- */
-  if (!position)
+  if (!position && loading)
     return (
       <div
         className={`rounded-xl p-5 border animate-pulse tracking-widest uppercase
@@ -65,7 +65,17 @@ export default function LiveTracker() {
       </div>
 
       {/* Location Info */}
-      <div className="space-y-2 text-sm">{renderObject(info, isDark)}</div>
+      <div className="space-y-2 text-sm">
+        {Object.keys(info).length > 0 ? (
+          renderObject(info, isDark)
+        ) : (
+          <div className="flex flex-col gap-2">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className={`h-4 w-full animate-pulse rounded ${isDark ? "bg-gray-700" : "bg-gray-100"}`}></div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

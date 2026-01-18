@@ -9,13 +9,13 @@ import Timeline from "./TimeLine";
 import Zone from "./Zone";
 
 const TrackingComponents = () => {
-  const { position, error } = useGeoLocation();
+  const { position, error, loading } = useGeoLocation();
   const { info } = useDetailsInfo();
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
   /* ------------------ ERROR STATE ------------------ */
-  if (error)
+  if (error && !position)
     return (
       <div
         className={`rounded-xl p-5 shadow-md border 
@@ -29,7 +29,7 @@ const TrackingComponents = () => {
     );
 
   /* ------------------ LOADING STATE ------------------ */
-  if (!position)
+  if (!position && loading)
     return (
       <div
         className={`rounded-xl p-5 border animate-pulse 
@@ -49,12 +49,26 @@ const TrackingComponents = () => {
       <div className="max-w-7xl mx-auto">
         {/* HEADER */}
         <header className="flex justify-between items-center mb-6">
-          <h1
-            className={`text-3xl font-extrabold ${isDark ? "text-gray-400" : "text-gray-800"
-              }`}
-          >
-            Your Location
-          </h1>
+          <div className="flex items-center gap-4">
+            <h1
+              className={`text-3xl font-extrabold ${isDark ? "text-gray-400" : "text-gray-800"
+                }`}
+            >
+              Your Location
+            </h1>
+            <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${loading
+                ? "bg-amber-500/20 text-amber-500 animate-pulse"
+                : "bg-emerald-500/20 text-emerald-500"
+              }`}>
+              <div className={`w-2 h-2 rounded-full ${loading ? "bg-amber-500" : "bg-emerald-500"}`}></div>
+              {loading ? "Updating..." : "Live"}
+            </div>
+          </div>
+          {position?.timestamp && (
+            <span className={`text-xs ${isDark ? "text-gray-500" : "text-gray-400"}`}>
+              Last updated: {new Date(position.timestamp).toLocaleTimeString()}
+            </span>
+          )}
         </header>
 
         {/* TRACKER + MAP */}

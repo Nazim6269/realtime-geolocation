@@ -1,15 +1,8 @@
-import { useEffect, useState } from "react";
-import { getISPInfo } from "../utils/getISPInfo";
-import useGeoLocation from "./useGeoLocation";
+import { useLocation } from "../context/location-context";
 
 const useDetailsInfo = () => {
-    const {position}=useGeoLocation();
-    const [info,setInfo]=useState({});
-   
-    useEffect(()=>{
-        getISPInfo().then(setInfo)
-    },[position])
-  return {info};
-}
+  const { info, loading, error } = useLocation();
+  return { info, loading, error };
+};
 
-export default useDetailsInfo
+export default useDetailsInfo;
