@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import AddNew from "../Components/AddNew";
 import WeatherInfo from "../Components/WeatherInfo";
+import CityInfoModal from "../Components/CityInfoModal";
 import { initialClocks, initialWeathers } from "../../data";
 
 import { useTheme } from "../hooks/useTheme";
 import AddNewWeather from "../Components/AddNewWeather";
-
 
 const WorldClocks = () => {
   const [time, setTime] = useState(new Date());
@@ -13,6 +13,7 @@ const WorldClocks = () => {
   const [clocks, setClocks] = useState(initialClocks);
   const [cities, setCities] = useState(initialWeathers);
   const [hour24, setHour24] = useState(false);
+  const [selectedCity, setSelectedCity] = useState(null);
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
@@ -34,14 +35,14 @@ const WorldClocks = () => {
   };
   const addCity = (city) => {
     setCities((prev) =>
-      prev.some((c) => c.city === city.city)
-        ? prev
-        : [...prev, city]
+      prev.some((c) => c.city === city.city) ? prev : [...prev, city]
     );
   };
 
   const getTimeInfo = (tz) => {
-    const timeInTz = new Date(currentOffsetTime.toLocaleString("en-US", { timeZone: tz }));
+    const timeInTz = new Date(
+      currentOffsetTime.toLocaleString("en-US", { timeZone: tz })
+    );
     const hour = timeInTz.getHours();
 
     let status = "Other";
@@ -65,7 +66,7 @@ const WorldClocks = () => {
       }),
       dateStr: currentOffsetTime.toLocaleDateString("en-US", { timeZone: tz }),
       status,
-      color
+      color,
     };
   };
 
@@ -77,10 +78,7 @@ const WorldClocks = () => {
     <div
       className={`
     min-h-screen p-8 transition-colors duration-500
-    ${isDark
-          ? "bg-gray-900 text-white"
-          : "bg-white text-gray-900"
-        }
+    ${isDark ? "bg-gray-900 text-white" : "bg-white text-gray-900"}
   `}
     >
       <div className="max-w-7xl mx-auto">
@@ -93,12 +91,17 @@ const WorldClocks = () => {
             >
               World Clocks
             </h1>
-            <p className="opacity-60 text-sm">Coordinate global meetings with the time slider</p>
+            <p className="opacity-60 text-sm">
+              Coordinate global meetings with the time slider
+            </p>
           </div>
 
           <div className="flex flex-col md:flex-row gap-6 items-center w-full md:w-auto">
             {/* Time Slider */}
-            <div className={`flex flex-col gap-2 p-4 rounded-2xl w-full md:w-80 border ${isDark ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+            <div
+              className={`flex flex-col gap-2 p-4 rounded-2xl w-full md:w-80 border ${isDark ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"
+                }`}
+            >
               <div className="flex justify-between text-xs font-bold uppercase tracking-wider opacity-60">
                 <span>Meeting Planner</span>
                 <span className={offset !== 0 ? "text-indigo-500" : ""}>
@@ -147,8 +150,9 @@ const WorldClocks = () => {
             return (
               <div
                 key={clock.id}
+                onClick={() => setSelectedCity(clock.city)}
                 className={`
-                  rounded-2xl p-6 flex flex-col transition-all duration-500 border hover:scale-[1.02] relative
+                  rounded-2xl p-6 flex flex-col transition-all duration-500 border hover:scale-[1.02] cursor-pointer relative
                   ${isDark
                     ? "bg-gray-800 border-gray-700 shadow-xl shadow-black/20"
                     : "bg-white border-gray-100 shadow-lg"
@@ -156,11 +160,23 @@ const WorldClocks = () => {
                 `}
               >
                 <button
-                  onClick={() => removeCity(clock.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeCity(clock.id);
+                  }}
                   className="absolute top-4 right-4 text-gray-400 hover:text-rose-500 transition-colors"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 </button>
 
@@ -168,13 +184,20 @@ const WorldClocks = () => {
                 <p className="text-xs opacity-50 mb-4">{clock.timezone}</p>
 
                 <div className="flex flex-col mb-4">
-                  <span className={`text-3xl font-black tracking-tight ${isDark ? "text-indigo-400" : "text-indigo-600"}`}>
+                  <span
+                    className={`text-3xl font-black tracking-tight ${isDark ? "text-indigo-400" : "text-indigo-600"
+                      }`}
+                  >
                     {info.timeStr}
                   </span>
-                  <span className="text-sm font-medium opacity-60">{info.dateStr}</span>
+                  <span className="text-sm font-medium opacity-60">
+                    {info.dateStr}
+                  </span>
                 </div>
 
-                <div className={`mt-auto inline-flex items-center justify-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${info.color}`}>
+                <div
+                  className={`mt-auto inline-flex items-center justify-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${info.color}`}
+                >
                   {info.status === "Business" && <span className="mr-1">💼</span>}
                   {info.status === "Sleeping" && <span className="mr-1">😴</span>}
                   {info.status} Hours
@@ -186,7 +209,10 @@ const WorldClocks = () => {
 
         {/* Weather Section */}
         <div className="mt-20 border-t border-gray-100/10 pt-10 text-center">
-          <h2 className={`text-3xl font-black mb-8 ${theme === "dark" ? "text-white" : "text-gray-800"}`}>
+          <h2
+            className={`text-3xl font-black mb-8 ${theme === "dark" ? "text-white" : "text-gray-800"
+              }`}
+          >
             World Weather Analytics
           </h2>
           <AddNewWeather onAdd={addCity} />
@@ -196,6 +222,13 @@ const WorldClocks = () => {
             ))}
           </div>
         </div>
+
+        {/* Detail Modal */}
+        <CityInfoModal
+          city={selectedCity}
+          onClose={() => setSelectedCity(null)}
+          isDark={isDark}
+        />
       </div>
     </div>
   );
