@@ -1,8 +1,9 @@
 import L from "leaflet";
 import PropTypes from "prop-types";
-import { MapContainer, Marker, Polyline, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, Polyline, Popup, TileLayer, Circle } from "react-leaflet";
 import { useLocation } from "../../context/location-context";
 import { useTheme } from "../../hooks/useTheme";
+import { ZONES } from "../../constants/zones";
 
 const icon = new L.Icon({
   iconUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png",
@@ -51,6 +52,28 @@ const MapComponent = ({ lat, lng, zone }) => {
           opacity={0.6}
           dashArray="10, 10"
         />
+
+        {/* Zones */}
+        {ZONES.map((zone) => (
+          <Circle
+            key={zone.id}
+            center={[zone.lat, zone.lng]}
+            radius={zone.radius * 1000} // Circle radius is in meters
+            pathOptions={{
+              color: isDark ? "#10b981" : "#059669",
+              fillColor: isDark ? "#10b981" : "#059669",
+              fillOpacity: 0.2,
+            }}
+          >
+            <Popup>
+              <div className="text-center font-bold">
+                {zone.name}
+                <br />
+                <span className="text-xs font-normal">Active Monitoring Zone</span>
+              </div>
+            </Popup>
+          </Circle>
+        ))}
 
         <Marker position={[lat, lng]} icon={icon}>
           <Popup>

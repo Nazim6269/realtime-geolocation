@@ -10,11 +10,14 @@ import EarthquakeDashboard from "./screens/EarthquakeDashboard";
 import Home from "./screens/Home";
 import WorldClocks from "./screens/WorldClocks";
 
+import NotificationManager from "./Components/shared/NotificationManager";
+
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
         <LocationProvider>
+          <NotificationManager />
           <div className="flex flex-col min-h-screen text-gray-900 dark:text-white transition-colors duration-500">
             {/* Navbar */}
             <Navbar />

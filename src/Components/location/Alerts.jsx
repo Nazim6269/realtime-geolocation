@@ -7,17 +7,15 @@ const Alerts = ({ alerts }) => {
 
   const color = (level) => {
     if (isDark) {
-      return level === "Critical"
-        ? "bg-red-500/20 text-red-400"
-        : level === "Warning"
-          ? "bg-yellow-400/20 text-yellow-300"
-          : "bg-blue-500/20 text-blue-300";
+      if (level === "Critical") return "bg-red-500/20 text-red-400";
+      if (level === "Warning") return "bg-yellow-400/20 text-yellow-300";
+      if (level === "Safe") return "bg-emerald-500/20 text-emerald-400";
+      return "bg-blue-500/20 text-blue-300";
     } else {
-      return level === "Critical"
-        ? "bg-red-100 text-red-600"
-        : level === "Warning"
-          ? "bg-yellow-100 text-yellow-700"
-          : "bg-blue-100 text-blue-700";
+      if (level === "Critical") return "bg-red-100 text-red-600";
+      if (level === "Warning") return "bg-yellow-100 text-yellow-700";
+      if (level === "Safe") return "bg-emerald-100 text-emerald-700";
+      return "bg-blue-100 text-blue-700";
     }
   };
 

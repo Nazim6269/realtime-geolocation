@@ -1,5 +1,6 @@
 import useDetailsInfo from "../../hooks/useDetailsInfo";
-import useGeoLocation from "../../hooks/useGeoLocation";
+import { useLocation, calculateDistance } from "../../context/location-context";
+import { ZONES } from "../../constants/zones";
 import { useTheme } from "../../hooks/useTheme";
 import LiveTracker from "../LiveTracker";
 import Alerts from "./Alerts";
@@ -10,10 +11,25 @@ import Timeline from "./TimeLine";
 import Zone from "./Zone";
 
 const TrackingComponents = () => {
-  const { position, error, loading } = useGeoLocation();
+  const { position, history, stats, error, loading } = useLocation();
   const { info } = useDetailsInfo();
   const { theme } = useTheme();
   const isDark = theme === "dark";
+
+  // Find current zone
+  let activeZone = null;
+  let distanceToClosest = Infinity;
+
+  if (position) {
+    for (const zone of ZONES) {
+      const dist = calculateDistance(position.lat, position.lng, zone.lat, zone.lng);
+      if (dist <= zone.radius) {
+        activeZone = zone;
+        break;
+      }
+      if (dist < distanceToClosest) distanceToClosest = dist;
+    }
+  }
 
   /* ------------------ ERROR STATE ------------------ */
   if (error && !position)
@@ -78,19 +94,19 @@ const TrackingComponents = () => {
           <MapComponent
             lat={position.lat}
             lng={position.lng}
-            zone={info.city}
+            zone={activeZone ? activeZone.name : "Outside Signal Zone"}
           />
         </div>
 
         {/* ZONE */}
         <div className="mb-8">
           <Zone
-            zoneName="Sector A"
-            location="Tokyo"
-            status="Safe"
-            speed={65}
-            signal={82}
-            progress={72}
+            zoneName={activeZone ? activeZone.name : "Global Zone"}
+            location={info.city || "Unknown"}
+            status={activeZone ? "Safe" : "Monitoring"}
+            speed={position.speed || 0}
+            signal={activeZone ? 100 : Math.max(0, 100 - distanceToClosest * 2).toFixed(0)}
+            progress={activeZone ? 100 : Math.max(0, 50 - distanceToClosest).toFixed(0)}
           />
         </div>
 
@@ -99,12 +115,11 @@ const TrackingComponents = () => {
           <Alerts
             alerts={[
               {
-                level: "Critical",
-                text: "Zone breach detected",
-                time: "11:30",
+                level: activeZone ? "Safe" : "Warning",
+                text: activeZone ? `Secure in ${activeZone.name}` : "Outside primary safe zones",
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
               },
-              { level: "Warning", text: "Speed limit exceeded", time: "11:05" },
-              { level: "Info", text: "Location updated", time: "10:55" },
+              { level: "Info", text: "Location services active", time: "System" },
             ]}
           />
         </div>
